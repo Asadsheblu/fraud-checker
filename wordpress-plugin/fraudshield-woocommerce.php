@@ -25,7 +25,7 @@ define('FRAUDSHIELD_PLUGIN_URL', plugin_dir_url(__FILE__));
  */
 class FraudShieldWooCommerce {
     private static $instance = null;
-    private $api_url = 'https://fraud-checker-x3pl.onrender.com';
+    private $api_url = 'https://fraud-checker-1.onrender.com';
     private $api_key = '';
     private $enabled = false;
 
@@ -242,11 +242,61 @@ class FraudShieldWooCommerce {
         <input 
             type="password" 
             name="fraudshield_api_key" 
+            id="fraudshield_api_key"
             value="<?php echo esc_attr($api_key); ?>"
             class="regular-text"
             placeholder="fsh_..."
         />
+        <button type="button" id="fraudshield_test_btn" class="button button-secondary" style="margin-left:10px;">
+            Test Connection
+        </button>
+        <span id="fraudshield_test_result" style="margin-left:10px; font-weight:bold;"></span>
         <p class="description">Get your API key from your FraudShield dashboard</p>
+
+        <script>
+        document.getElementById('fraudshield_test_btn').addEventListener('click', function() {
+            var key = document.getElementById('fraudshield_api_key').value;
+            var result = document.getElementById('fraudshield_test_result');
+
+            if (!key) {
+                result.style.color = 'red';
+                result.textContent = '❌ API Key লিখুন আগে';
+                return;
+            }
+
+            result.style.color = 'gray';
+            result.textContent = '⏳ Testing...';
+
+            fetch('<?php echo esc_url($this->api_url); ?>/api/orders/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    apiKey: key,
+                    customer: { email: 'test@fraudshield.app', name: 'Test User' },
+                    amount: 1,
+                    currency: 'USD',
+                    shippingAddress: { country: 'US', state: 'CA', city: 'LA', zipCode: '90001', street: '123 Test St' },
+                    paymentMethod: 'test'
+                })
+            })
+            .then(function(res) {
+                if (res.status === 401) {
+                    result.style.color = 'red';
+                    result.textContent = '❌ API Key ভুল';
+                } else if (res.status === 200) {
+                    result.style.color = 'green';
+                    result.textContent = '✅ সংযোগ সফল! API Key সঠিক আছে';
+                } else {
+                    result.style.color = 'orange';
+                    result.textContent = '⚠️ Server error: HTTP ' + res.status;
+                }
+            })
+            .catch(function(err) {
+                result.style.color = 'red';
+                result.textContent = '❌ Server এ connect করা যাচ্ছে না';
+            });
+        });
+        </script>
         <?php
     }
 
