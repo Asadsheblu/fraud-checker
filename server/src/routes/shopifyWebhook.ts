@@ -103,7 +103,7 @@ router.post('/webhook', async (req, res) => {
 
       if (user) {
         // Send fraud alert via webhook/email
-        console.log(`Fraud alert for shop ${shopName}: Order ${order.id} - Risk Score: ${fraudAnalysis.riskScore}`);
+        console.log(`[FraudShield] Fraud alert for shop ${shopDomain}: Order ${order.id} - Risk Score: ${fraudAnalysis.riskScore}`);
       }
     }
 

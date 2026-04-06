@@ -87,7 +87,7 @@ router.post('/analyze', async (req, res) => {
       .from('orders')
       .insert([
         {
-          id: fraudAnalysis.timestamp.getTime().toString(),
+          id: uuidv4(),
           user_id: apiKeyData.user_id,
           customer_email: orderData.customer.email,
           customer_name: orderData.customer.name,

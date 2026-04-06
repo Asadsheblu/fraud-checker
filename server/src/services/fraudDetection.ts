@@ -166,7 +166,7 @@ export class FraudDetectionEngine {
     return 0;
   }
 
-  private async checkBlacklist(email: string): boolean {
+  private async checkBlacklist(email: string): Promise<boolean> {
     const { data, error } = await this.supabase
       .from('blacklist')
       .select('id')
