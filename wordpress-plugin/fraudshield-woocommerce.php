@@ -25,7 +25,7 @@ define('FRAUDSHIELD_PLUGIN_URL', plugin_dir_url(__FILE__));
  */
 class FraudShieldWooCommerce {
     private static $instance = null;
-    private $api_url = 'http://localhost:3001';
+    private $api_url = 'https://fraud-checker-x3pl.onrender.com';
     private $api_key = '';
     private $enabled = false;
 
@@ -43,6 +43,7 @@ class FraudShieldWooCommerce {
         // Admin hooks
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_init', [$this, 'register_settings']);
+        add_action('admin_notices', [$this, 'show_admin_notices']);
 
         // WooCommerce hooks
         if ($this->enabled && !empty($this->api_key)) {
@@ -209,7 +210,22 @@ class FraudShieldWooCommerce {
         </div>
         <?php
     }
+/**
+     * Show admin error/notice from transient
+     */
+    public function show_admin_notices() {
+        $error = get_transient('fraudshield_admin_error');
+        if ($error) {
+            echo '<div class="notice notice-error is-dismissible"><p><strong>FraudShield:</strong> ' . esc_html($error) . '</p></div>';
+            delete_transient('fraudshield_admin_error');
+        }
 
+        $notice = get_transient('fraudshield_admin_notice');
+        if ($notice) {
+            echo '<div class="notice notice-warning is-dismissible"><p><strong>FraudShield:</strong> ' . esc_html($notice) . '</p></div>';
+            delete_transient('fraudshield_admin_notice');
+        }
+    }
     /**
      * Render settings section
      */
@@ -396,13 +412,40 @@ class FraudShieldWooCommerce {
             ]
         );
 
+        // Server বন্ধ বা URL ভুল বা timeout
         if (is_wp_error($response)) {
-            error_log('FraudShield API Error: ' . $response->get_error_message());
+            $error_msg = $response->get_error_message();
+            error_log('[FraudShield] Connection Error: ' . $error_msg);
+            set_transient('fraudshield_admin_error', 'FraudShield সার্ভারে connect করা যাচ্ছে না: ' . $error_msg, 60);
             return null;
         }
 
-        $body = wp_remote_retrieve_body($response);
-        return json_decode($body, true);
+        $status_code = wp_remote_retrieve_response_code($response);
+        $body        = wp_remote_retrieve_body($response);
+        $data        = json_decode($body, true);
+
+        // API Key ভুল
+        if ($status_code === 401) {
+            error_log('[FraudShield] Invalid API Key');
+            set_transient('fraudshield_admin_error', 'FraudShield API Key ভুল। Settings থেকে ঠিক করুন।', 60);
+            return null;
+        }
+
+        // Daily limit শেষ
+        if ($status_code === 429) {
+            error_log('[FraudShield] Rate limit exceeded');
+            set_transient('fraudshield_admin_notice', 'FraudShield দৈনিক limit শেষ। Orders fraud check ছাড়া চলছে।', 60);
+            return null;
+        }
+
+        // অন্য যেকোনো error
+        if ($status_code !== 200) {
+            error_log('[FraudShield] API Error ' . $status_code . ' — Response: ' . $body);
+            set_transient('fraudshield_admin_error', 'FraudShield API Error: HTTP ' . $status_code, 60);
+            return null;
+        }
+
+        return $data;
     }
 
     /**
