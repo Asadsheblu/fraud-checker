@@ -138,7 +138,14 @@ router.post('/send-daily-digest', async (req, res) => {
   try {
     const { email, stats } = sendDailyDigestSchema.parse(req.body);
 
-    const result = await emailService.sendDailyDigestEmail(email, stats);
+    const safeStats = {
+      totalOrders: stats.totalOrders ?? 0,
+      fraudDetected: stats.fraudDetected ?? 0,
+      totalValue: stats.totalValue ?? 0,
+      avgRiskScore: stats.avgRiskScore ?? 0
+    };
+
+    const result = await emailService.sendDailyDigestEmail(email, safeStats);
 
     res.json({
       success: true,

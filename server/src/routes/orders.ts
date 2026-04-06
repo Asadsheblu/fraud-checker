@@ -68,14 +68,27 @@ router.post('/analyze', async (req, res) => {
     }
 
     // Run fraud analysis
+    const shipping = orderData.shippingAddress;
+    const billing = orderData.billingAddress;
+
     const fraudAnalysis = await fraudEngine.analyzeFraud({
       orderId: uuidv4(),
       customerEmail: orderData.customer.email,
       amount: orderData.amount,
       currency: orderData.currency,
       customerName: orderData.customer.name,
-      shippingAddress: orderData.shippingAddress,
-      billingAddress: orderData.billingAddress,
+      shippingAddress: {
+        country: shipping.country ?? '',
+        state: shipping.state ?? '',
+        city: shipping.city ?? '',
+        zipCode: shipping.zipCode ?? ''
+      },
+      billingAddress: billing ? {
+        country: billing.country ?? '',
+        state: billing.state ?? '',
+        city: billing.city ?? '',
+        zipCode: billing.zipCode ?? ''
+      } : undefined,
       paymentMethod: orderData.paymentMethod,
       deviceFingerprint: orderData.deviceFingerprint,
       ipAddress: orderData.ipAddress,
