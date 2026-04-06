@@ -1,0 +1,319 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                    🛡️  FRAUDSHIELD SaaS - সম্পূর্ণ ওভারভিউ                  ║
+║                                                                              ║
+║                    Fraud Detection Platform for E-commerce                  ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                          🚀 এক নজরে শুরু করুন                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+   ১. npm run dev                  → Frontend চালু হবে (port: 8085)
+   २. cd server && npm run dev     → Backend চালু হবে (port: 3001)
+   ३. http://localhost:8085 খুলুন  → লগইন করুন
+   ४. API Key তৈরি করুন            → Dashboard → API Keys
+   ५. Integrate করুন              → Shopify / WordPress / Your API
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        📊 সিস্টেম আর্কিটেকচার                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│     🌐 FRONTEND (React App)                        │
+│                                                     │
+│  • Dashboard - Main overview                       │
+│  • Orders - Order list with fraud scores          │
+│  • API Keys - Key management                      │
+│  • Settings - Configure integrations              │
+│  • Admin Panel - User & fraud management          │
+│                                                     │
+│  🌍 Port: 8085                                    │
+└──────────────┬──────────────────────────────────────┘
+               │ HTTP Requests
+               │ (with API Key)
+               ▼
+┌─────────────────────────────────────────────────────┐
+│     ⚙️  BACKEND (Express.js Server)                │
+│                                                     │
+│  • /api/auth         - লগইন/সাইনআপ               │
+│  • /api/orders       - অর্ডার বিশ্লেষণ            │
+│  • /api/api-keys     - কী ম্যানেজমেন্ট           │
+│  • /api/analytics    - পরিসংখ্যান                 │
+│  • /api/integrations - Shopify/WordPress          │
+│  • /api/admin        - এডমিন ফাংশন             │
+│  • /api/webhooks     - ওয়েবহুক হ্যান্ডেলার      │
+│                                                     │
+│  🌍 Port: 3001                                   │
+└──────────────┬──────────────────────────────────────┘
+               │ Database Queries
+               │ (Encrypted)
+               ▼
+┌─────────────────────────────────────────────────────┐
+│     🗄️  DATABASE (Supabase PostgreSQL)             │
+│                                                     │
+│  Tables:                                            │
+│  • users              - ব্যবহারকারী                │
+│  • orders             - অর্ডার তথ্য              │
+│  • api_keys           - API চাবি                  │
+│  • fraud_rules        - জালিয়াতির নিয়ম         │
+│  • audit_logs         - সব কার্যকলাপ            │
+│  • shopify_integrations - Shopify সংযোগ        │
+│  • woocommerce_integrations - WordPress সংযোগ    │
+│  • + 6 more tables                                 │
+│                                                     │
+│  🔒 SSL Encrypted + Daily Backup                  │
+└─────────────────────────────────────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                      🔄 Fraud Detection Process                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+গ্রাহক অর্ডার দেয়
+    ↓
+FraudShield API এ যায়
+    ↓
+७টি Rule দিয়ে Score দেওয়া হয়:
+    ├─ Amount Check (অর্ডার পরিমাণ)        → 0-30 points
+    ├─ Address Mismatch (ঠিকানা মিল)      → 0-20 points
+    ├─ Country Risk (দেশ ঝুঁকি)           → 0-25 points
+    ├─ Velocity Check (দ্রুত অর্ডার)       → 0-15 points
+    ├─ Blacklist Match (ব্ল্যাকলিস্ট)      → 0-30 points
+    ├─ Device Fingerprint (ডিভাইস ট্র্যাক)  → 0-20 points
+    └─ Email Domain (ইমেইল যাচাই)        → 0-10 points
+    ↓
+Total Score (0-100) দেওয়া হয়
+    ↓
+Risk Level নির্ধারণ:
+    ├─ 0-30:  ✅ Safe     → অনুমোদন করুন
+    ├─ 31-60: ⚠️ Risky    → রিভিউ করুন
+    └─ 61-100: ❌ Fraud   → ব্লক করুন
+    ↓
+Result পাঠানো হয় গ্রাহক/স্টোরের কাছে
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        📱 Integration Options                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
+│   🛒 SHOPIFY        │    │  📦 WORDPRESS       │    │  💻 YOUR API        │
+├─────────────────────┤    ├─────────────────────┤    ├─────────────────────┤
+│                     │    │                     │    │                     │
+│ 1. Click "Connect"  │    │ 1. Upload Plugin    │    │ 1. Get API Key      │
+│ 2. Authorize Shopify│    │ 2. Activate Plugin  │    │ 2. Make API Call    │
+│ 3. Auto Webhooks    │    │ 3. Paste API Key    │    │ 3. Get Response     │
+│ 4. Orders Auto Check│    │ 4. Save Settings    │    │                     │
+│                     │    │ 5. Orders Auto Check│    │ ✓ REST API          │
+│ ✓ Real-time         │    │                     │    │ ✓ Any Language      │
+│ ✓ 2 Clicks          │    │ ✓ WordPress Native  │    │ ✓ Flexible          │
+│ ✓ Automatic         │    │ ✓ Full Integration  │    │ ✓ Custom Logic      │
+│                     │    │                     │    │                     │
+└─────────────────────┘    └─────────────────────┘    └─────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                      📚 Documentation Guide                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+START HERE:
+  📘 README_BANGLA.md           ← প্রজেক্ট সম্পূর্ণ সারসংক্ষেপ
+  📗 BANGLA_GUIDE.md            ← বিস্তারিত ব্যবহার গাইড
+  📙 QUICKSTART.md              ← ৫ মিনিটে শুরু করুন
+
+THEN READ:
+  📕 USER_GUIDE.md              ← টিউটোরিয়াল ও integration
+  📓 API.md                     ← API রেফারেন্স (ডেভেলপারদের)
+  📔 SETUP.md                   ← বিস্তারিত ইনস্টলেশন
+
+FOR DEPLOYMENT:
+  📖 DEPLOYMENT.md              ← লাইভ করার নির্দেশনা
+  📕 PROJECT_SUMMARY.md         ← আর্কিটেকচার ও কোড
+  📗 COMPLETION_REPORT.md       ← প্রজেক্ট সম্পূর্ণতা
+
+QUICK REFERENCE:
+  📙 COMPLETE_SUMMARY.txt       ← এই ফাইলটি (দ্রুত সারসংক্ষেপ)
+  📓 VISUAL_OVERVIEW.txt        ← ভিজ্যুয়াল ওভারভিউ (এটি!)
+  📔 DOCUMENTATION_BANGLA.md    ← ডকুমেন্টেশন ইন্ডেক্স
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        🎯 Dashboard Features                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+📊 MAIN DASHBOARD:
+    ├─ Total Orders        → সব অর্ডার সংখ্যা
+    ├─ Safe Orders         → নিরাপদ অর্ডার %
+    ├─ Risky Orders        → সন্দেহজনক অর্ডার %
+    ├─ Fraud Orders        → জালিয়াতি অর্ডার %
+    ├─ Revenue Protected    → বাঁচানো টাকা
+    ├─ Top Fraud Triggers   → সবচেয়ে বড় কারণ
+    └─ Fraud Rate Trend    → গত ৩० দিনের গ্রাফ
+
+📋 ORDERS PAGE:
+    ├─ Order List          → সব অর্ডার তালিকা
+    ├─ Risk Score          → প্রতিটি অর্ডার স্কোর
+    ├─ Fraud Triggers      → জালিয়াতির কারণ
+    ├─ Customer Info       → গ্রাহক বিস্তারিত
+    ├─ Manual Override      → ম্যানুয়াল পরিবর্তন
+    └─ Comments           → নোটস যোগ করুন
+
+🔐 ADMIN PANEL:
+    ├─ User Management     → সব ইউজার দেখুন
+    ├─ Fraud Rules         → নিয়ম এডিট করুন
+    ├─ Audit Logs          → সব কার্যকলাপ
+    ├─ System Stats        → সিস্টেম পরিসংখ্যান
+    ├─ Blacklist          → জালিয়াতি তালিকা
+    └─ Settings           → সিস্টেম সেটিংস
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        🛠️  Technology Stack                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+FRONTEND:
+  ✓ React 18             - UI Library
+  ✓ TypeScript           - Type-safe JavaScript
+  ✓ Tailwind CSS         - Styling
+  ✓ SWR                  - Data Fetching
+  ✓ React Router         - Routing
+  ✓ shadcn/ui            - UI Components
+
+BACKEND:
+  ✓ Express.js           - Web Framework
+  ✓ TypeScript           - Type-safe JavaScript
+  ✓ Supabase             - Database & Auth
+  ✓ JWT                  - Authentication
+  ✓ Stripe               - Payments
+  ✓ Zod                  - Input Validation
+
+DATABASE:
+  ✓ PostgreSQL           - Database Engine
+  ✓ Supabase             - Managed Database
+  ✓ Row Level Security   - Data Protection
+  ✓ Real-time Updates    - Live Sync
+
+INTEGRATIONS:
+  ✓ Shopify API          - E-commerce Platform
+  ✓ WooCommerce Plugin   - WordPress Integration
+  ✓ Resend               - Email Service
+  ✓ Stripe API           - Payment Processing
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        💾 What's Included                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+CODE:
+  ✓ 1,500+ lines Backend Code
+  ✓ 500+ lines Frontend Code
+  ✓ Database Schema (13 tables)
+  ✓ Fraud Detection Engine (7 rules)
+  ✓ 30+ API Endpoints
+  ✓ WordPress Plugin (492 lines)
+
+DOCUMENTATION:
+  ✓ 8 Documentation Files
+  ✓ 3,500+ lines Total
+  ✓ 100% in Bengali (বাংলা)
+  ✓ 100% in English (ইংরেজি)
+  ✓ Code Examples
+  ✓ Integration Guides
+
+FEATURES:
+  ✓ Real-time Fraud Detection
+  ✓ Shopify Integration
+  ✓ WordPress Plugin
+  ✓ REST API
+  ✓ Webhook Management
+  ✓ Admin Panel
+  ✓ Analytics Dashboard
+  ✓ Email Notifications
+  ✓ API Key Management
+  ✓ Audit Logging
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        🚀 Quick Commands                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+START FRONTEND:
+  $ npm run dev
+
+START BACKEND:
+  $ cd server
+  $ npm run dev
+
+OPEN BROWSER:
+  http://localhost:8085
+
+LOGIN:
+  Email: test@example.com
+  Password: password123
+
+BUILD FOR PRODUCTION:
+  $ npm run build
+  $ cd server && npm run build
+
+DEPLOY:
+  See DEPLOYMENT.md
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        📞 Support & Help                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+NEED HELP?
+
+  📖 Read Documentation:
+     → README_BANGLA.md (সম্পূর্ণ সারসংক্ষেপ)
+     → BANGLA_GUIDE.md (বিস্তারিত গাইড)
+     → USER_GUIDE.md (ধাপে ধাপে)
+
+  💻 API Issues?
+     → API.md (সব এন্ডপয়েন্ট)
+     → USER_GUIDE.md → Troubleshooting
+
+  🔧 Setup Problems?
+     → SETUP.md (বিস্তারিত নির্দেশনা)
+     → QUICKSTART.md (দ্রুত শুরু)
+
+  🚀 Deployment?
+     → DEPLOYMENT.md (লাইভ করার গাইড)
+
+  📧 Email Support:
+     support@fraudshield.io
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        ✅ Checklist - শুরু করুন                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+□ README_BANGLA.md পড়ুন
+□ QUICKSTART.md অনুসরণ করুন
+□ npm run dev চালান (ফ্রন্টেন্ড)
+□ cd server && npm run dev চালান (ব্যাকএন্ড)
+□ http://localhost:8085 খুলুন
+□ লগইন করুন
+□ API Key তৈরি করুন
+□ Shopify/WordPress/Custom API integrate করুন
+□ প্রথম অর্ডার বিশ্লেষণ করুন
+□ ড্যাশবোর্ডে ফলাফল দেখুন
+□ প্রয়োজন অনুযায়ী কাস্টমাইজ করুন
+□ DEPLOYMENT.md পড়ুন
+□ লাইভ করুন! 🎉
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║               Ready? Start with: README_BANGLA.md → QUICKSTART.md            ║
+║                                                                              ║
+║                    তৈরি: এপ্রিল ২০२६ | FraudShield Team                    ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+      - VITE_API_URL=${VITE_API_URL:-http://backend:3000}
+    depends_on:
+      - backend
+    volumes:
+      - ./src:/app/src
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - SHOPIFY_APP_ID=${SHOPIFY_APP_ID}
+      - SHOPIFY_APP_SECRET=${SHOPIFY_APP_SECRET}
+      - PORT=3000
+      - NODE_ENV=production
+      - CORS_ORIGIN=http://frontend:5173
+    volumes:
+      - ./server/src:/app/server/src
+    command: npm start
+
+volumes:
+  node_modules:

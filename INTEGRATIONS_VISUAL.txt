@@ -1,0 +1,290 @@
+═══════════════════════════════════════════════════════════════
+    FraudShield Integrations - সম্পূর্ণ Visual Guide
+═══════════════════════════════════════════════════════════════
+
+📱 DASHBOARD LAYOUT
+═══════════════════════════════════════════════════════════════
+
+┌──────────────────┬────────────────────────────────────────────┐
+│   SIDEBAR        │           MAIN CONTENT AREA                │
+│                  │                                            │
+│ 🛡️  FraudShield │  ╔════════════════════════════════════╗   │
+│                  │  ║  Integrations                      ║   │
+│ Dashboard        │  ║  Connect FraudShield to your       ║   │
+│ Orders           │  ║  e-commerce platform              ║   │
+│ API Keys         │  ╚════════════════════════════════════╝   │
+│ ⭐ Integrations  │                                            │
+│ Billing          │  ┌─────────────┬─────────────────────┐   │
+│ Settings         │  │   SHOPIFY   │    WOOCOMMERCE      │   │
+│ Admin Panel      │  │             │                     │   │
+│                  │  │ Real-time   │ WordPress Plugin    │   │
+│ Settings:        │  │ fraud       │ for automatic       │   │
+│ - Collapse       │  │ detection   │ order analysis      │   │
+│ - Log Out        │  │             │                     │   │
+│                  │  │ ✓ OAuth     │ ✓ Easy setup        │   │
+│                  │  │ ✓ Webhooks  │ ✓ Auto analysis     │   │
+│                  │  │ ✓ Real-time │ ✓ Email alerts      │   │
+│                  │  │             │                     │   │
+│                  │  │ [Connect]   │ [Setup]             │   │
+│                  │  └─────────────┴─────────────────────┘   │
+│                  │                                            │
+│                  │  ┌──────────────────────────────────────┐ │
+│                  │  │         REST API                     │ │
+│                  │  │  Custom integration for your code    │ │
+│                  │  │                                      │ │
+│                  │  │  curl -X POST /api/orders/analyze \ │ │
+│                  │  │    -H "Authorization: Bearer KEY"   │ │
+│                  │  │                                      │ │
+│                  │  │  [View API Documentation]           │ │
+│                  │  └──────────────────────────────────────┘ │
+│                  │                                            │
+│                  │  ┌──────────────────────────────────────┐ │
+│                  │  │     INSTALLATION GUIDE               │ │
+│                  │  │                                      │ │
+│                  │  │ 1. Shopify Integration               │ │
+│                  │  │    • Click "Connect Shopify"         │ │
+│                  │  │    • Authorize FraudShield app       │ │
+│                  │  │    • Webhooks register automatically │ │
+│                  │  │    • Start analyzing orders          │ │
+│                  │  │                                      │ │
+│                  │  │ 2. WooCommerce Installation          │ │
+│                  │  │    • Upload plugin file              │ │
+│                  │  │    • Activate in WordPress           │ │
+│                  │  │    • Add API key in settings         │ │
+│                  │  │    • Orders analyze at checkout      │ │
+│                  │  │                                      │ │
+│                  │  │ 3. Custom Integration (API)          │ │
+│                  │  │    • Get API key from dashboard      │ │
+│                  │  │    • Send order data to endpoint     │ │
+│                  │  │    • Receive fraud score             │ │
+│                  │  │    • Apply in your system            │ │
+│                  │  └──────────────────────────────────────┘ │
+│                  │                                            │
+└──────────────────┴────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+INTEGRATION FLOW
+═══════════════════════════════════════════════════════════════
+
+SHOPIFY:
+  Your Store → Shopify Webhook → FraudShield API → 
+    Fraud Analysis → Dashboard Alert
+
+WOOCOMMERCE:
+  WordPress Checkout → FraudShield Plugin → 
+    FraudShield API → Fraud Score → Order Status
+
+REST API:
+  Your Code → FraudShield API → 
+    Fraud Analysis → Response → Your Logic
+
+═══════════════════════════════════════════════════════════════
+SHOPIFY INTEGRATION STEP-BY-STEP
+═══════════════════════════════════════════════════════════════
+
+┌─ STEP 1: Click "Connect Shopify" ─────────────┐
+│                                               │
+│  [INTEGRATIONS PAGE]                          │
+│  Shopify Card                                 │
+│  ┌───────────────────────────────────────┐   │
+│  │ Real-time fraud detection for Shopify │   │
+│  │                                       │   │
+│  │ Features:                             │   │
+│  │ • Automatic order analysis            │   │
+│  │ • Real-time fraud alerts              │   │
+│  │ • Custom webhook support              │   │
+│  │ • Dashboard analytics                 │   │
+│  │                                       │   │
+│  │ [Connect Shopify Button]              │   │
+│  └───────────────────────────────────────┘   │
+│                                               │
+└───────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 2: OAuth Authorization ────────────────┐
+│                                               │
+│  Browser redirects to Shopify                │
+│  https://shopify.com/admin/oauth/authorize   │
+│                                               │
+│  [SHOPIFY LOGIN PAGE]                        │
+│  Email: [your_shopify_email@...]             │
+│  Password: [your_password]                   │
+│                                               │
+│  [Sign in]                                   │
+│                                               │
+└───────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 3: Grant Permission ───────────────────┐
+│                                               │
+│  FraudShield is requesting permission to:    │
+│                                               │
+│  ✓ Read your orders                          │
+│  ✓ Write to your orders                      │
+│  ✓ Manage webhooks                           │
+│                                               │
+│  [Grant Access]  [Cancel]                    │
+│                                               │
+└───────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 4: Connected! ─────────────────────────┐
+│                                               │
+│  ✅ Shopify Connected                        │
+│  • Webhooks installed                        │
+│  • Orders being analyzed                     │
+│  • Real-time alerts active                   │
+│                                               │
+│  View Orders | Webhook Status | Settings     │
+│                                               │
+└───────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+WOOCOMMERCE INTEGRATION STEP-BY-STEP
+═══════════════════════════════════════════════════════════════
+
+┌─ STEP 1: Click "Setup WooCommerce" ──────────┐
+│                                                │
+│  [INTEGRATIONS PAGE]                          │
+│  WooCommerce Card                             │
+│  ┌────────────────────────────────────────┐  │
+│  │ WordPress plugin for automatic fraud   │  │
+│  │ detection                              │  │
+│  │                                        │  │
+│  │ Features:                              │  │
+│  │ • Checkout page protection             │  │
+│  │ • Admin dashboard widget               │  │
+│  │ • Email notifications                  │  │
+│  │ • Easy configuration                   │  │
+│  │                                        │  │
+│  │ [Setup WooCommerce Button]             │  │
+│  └────────────────────────────────────────┘  │
+│                                                │
+└────────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 2: Download Plugin ────────────────────┐
+│                                                │
+│  Plugin File:                                 │
+│  fraudshield-woocommerce.php                  │
+│                                                │
+│  Location:                                    │
+│  /wordpress-plugin/fraudshield-woocommerce.php
+│                                                │
+│  Download it now                              │
+│                                                │
+└────────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 3: Upload to WordPress ────────────────┐
+│                                                │
+│  WordPress Admin                              │
+│  → Plugins                                    │
+│  → Add New                                    │
+│  → Upload Plugin                              │
+│  → Choose fraudshield-woocommerce.php         │
+│  → Install Now                                │
+│                                                │
+└────────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 4: Activate Plugin ────────────────────┐
+│                                                │
+│  [Activate Plugin]                            │
+│                                                │
+│  ✅ Plugin activated successfully             │
+│                                                │
+└────────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 5: Configure API Key ─────────────────┐
+│                                                │
+│  WordPress Admin                              │
+│  → WooCommerce                                │
+│  → Settings                                   │
+│  → FraudShield Tab                            │
+│                                                │
+│  API Key: [paste_your_api_key_here]          │
+│  Enable Fraud Checking: ☑                    │
+│  Block Fraud Orders: ☑                       │
+│  Email Alerts: ☑                             │
+│                                                │
+│  [Save Changes]                               │
+│                                                │
+└────────────────────────────────────────────────┘
+                    ↓
+┌─ STEP 6: Ready! ────────────────────────────┐
+│                                                │
+│  ✅ Plugin configured                         │
+│  • Orders analyzed at checkout                │
+│  • Fraud alerts sent via email                │
+│  • Suspicious orders flagged in admin         │
+│                                                │
+│  Dashboard | Recent Orders | Settings         │
+│                                                │
+└────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+REST API INTEGRATION EXAMPLE
+═══════════════════════════════════════════════════════════════
+
+GETTING API KEY:
+  Dashboard → API Keys → Create New Key
+  
+  Name: My Website
+  [Create]
+  
+  API Key: sk_live_abc123def456ghi789jkl
+  
+  ⚠️ IMPORTANT: Save this! You won't see it again!
+
+MAKING A REQUEST:
+  
+  curl -X POST http://localhost:3001/api/orders/analyze \
+    -H "Authorization: Bearer sk_live_abc123def456ghi789jkl" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "orderAmount": 5000,
+      "customerEmail": "buyer@example.com",
+      "shippingAddress": "123 Main St, Dhaka, BD",
+      "billingAddress": "123 Main St, Dhaka, BD",
+      "customerCountry": "BD",
+      "deviceId": "device_abc123"
+    }'
+
+RESPONSE:
+  
+  {
+    "riskScore": 35,
+    "riskLevel": "risky",
+    "triggers": ["ADDRESS_MISMATCH"],
+    "recommendation": "REVIEW",
+    "fraudReason": "Billing and shipping address mismatch"
+  }
+
+YOUR LOGIC:
+  
+  if (response.riskLevel === 'fraud') {
+    // Block the order
+    rejectOrder("Fraudulent activity detected");
+  } else if (response.riskLevel === 'risky') {
+    // Request additional verification
+    requestVerification(customerEmail);
+  } else {
+    // Approve the order
+    approveOrder();
+  }
+
+═══════════════════════════════════════════════════════════════
+FINAL CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+☑ npm run dev - frontend running on port 8085
+☑ cd server && npm run dev - backend running on port 3001
+☑ Login to http://localhost:8085
+☑ See "Integrations" in left sidebar
+☑ Click on Integrations page
+☑ See three integration cards:
+  ☑ Shopify (with Connect button)
+  ☑ WooCommerce (with Setup button)
+  ☑ REST API (with code examples)
+☑ API Keys page has "Create New Key" option
+☑ INTEGRATION_GUIDE_BANGLA.md file available
+☑ Can connect to Shopify/WooCommerce/API
+
+═══════════════════════════════════════════════════════════════
+এখন সবকিছু প্রস্তুত! সিস্টেম লাইভ এবং ready for production! 🚀
+═══════════════════════════════════════════════════════════════

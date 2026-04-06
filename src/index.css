@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 160 84% 39%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 16% 16%;
+    --secondary-foreground: 210 20% 80%;
+
+    --muted: 220 14% 14%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 220 16% 18%;
+    --accent-foreground: 210 20% 92%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 14% 16%;
+    --input: 220 14% 16%;
+    --ring: 160 84% 39%;
+
+    --radius: 0.625rem;
+
+    /* Risk level colors */
+    --safe: 160 84% 39%;
+    --safe-foreground: 220 20% 7%;
+    --risky: 38 92% 50%;
+    --risky-foreground: 220 20% 7%;
+    --fraud: 0 72% 51%;
+    --fraud-foreground: 210 40% 98%;
+
+    /* Custom tokens */
+    --glow-primary: 0 0 20px hsl(160 84% 39% / 0.15);
+    --glow-fraud: 0 0 20px hsl(0 72% 51% / 0.15);
+    --gradient-dark: linear-gradient(180deg, hsl(220 20% 9%) 0%, hsl(220 20% 7%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 18% 12%) 0%, hsl(220 18% 9%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(170 80% 45%) 100%);
+
+    --sidebar-background: 220 20% 5%;
+    --sidebar-foreground: 210 20% 70%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 16% 12%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 14% 12%;
+    --sidebar-ring: 160 84% 39%;
+
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-sans);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+  .glow-fraud {
+    box-shadow: var(--glow-fraud);
+  }
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
